@@ -1,0 +1,17 @@
+# Default values for nginx-ingress custom chart.
+controller:
+  replicaCount: 2
+  image:
+    repository: nginx
+    tag: stable
+    pullPolicy: IfNotPresent
+  service:
+    type: LoadBalancer
+    port: 80
+  resources:
+    limits:
+      cpu: 200m
+      memory: 256Mi
+    requests:
+      cpu: 100m
+      memory: 128Mi

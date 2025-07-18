@@ -1,0 +1,22 @@
+stages:
+  - build
+  - test
+  - deploy
+
+build:
+  stage: build
+  script:
+    - echo "Build stage: install dependencies, lint, etc."
+    - pip install -r src/requirements.txt
+
+test:
+  stage: test
+  script:
+    - echo "Test stage: run unit tests (placeholder)"
+    # - pytest
+
+deploy:
+  stage: deploy
+  script:
+    - echo "Deploy stage: kubectl apply, helm install, etc. (placeholder)"
+  when: manual
