@@ -3,20 +3,24 @@ kind: Deployment
 metadata:
   name: {{ include "nginx-ingress.fullname" . }}
   labels:
-    app: {{ include "nginx-ingress.name" . }}
+    app.kubernetes.io/name: {{ include "nginx-ingress.name" . }}
+    app.kubernetes.io/instance: {{ .Release.Name }}
 spec:
   replicas: {{ .Values.controller.replicaCount }}
   selector:
     matchLabels:
-      app: {{ include "nginx-ingress.name" . }}
+      app.kubernetes.io/name: {{ include "nginx-ingress.name" . }}
+      app.kubernetes.io/instance: {{ .Release.Name }}
   template:
     metadata:
       labels:
-        app: {{ include "nginx-ingress.name" . }}
+        app.kubernetes.io/name: {{ include "nginx-ingress.name" . }}
+        app.kubernetes.io/instance: {{ .Release.Name }}
     spec:
       containers:
         - name: nginx-ingress
           image: "{{ .Values.controller.image.repository }}:{{ .Values.controller.image.tag }}"
+          imagePullPolicy: {{ .Values.controller.image.pullPolicy }}
           ports:
             - containerPort: 80
           resources:
